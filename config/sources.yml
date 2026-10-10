@@ -1,0 +1,120 @@
+# 來源設定。要調整信的內容來源，改這個檔案即可。
+timezone: Asia/Taipei
+# 可用環境變數 MODEL 覆蓋
+model: claude-sonnet-5-5
+
+# 來源分級。不在任何一級的網域視為 T4（只能當訊號，不能當事實）。
+tiers:
+  T1:  # 一手：官方公告、監管文件、論文、原始資料
+    - federalreserve.gov
+    - sec.gov
+    - cftc.gov
+    - ecb.europa.eu
+    - imf.org
+    - bis.org
+    - cbc.gov.tw
+    - fsc.gov.tw
+    - mof.gov.tw
+    - twse.com.tw
+    - mops.twse.com.tw
+    - ey.gov.tw
+    - president.gov.tw
+    - arxiv.org
+    - nature.com
+    - openai.com
+    - anthropic.com
+    - blog.google
+    - deepmind.google
+    - ai.meta.com
+    - github.blog
+    - huggingface.co
+    - nvidia.com
+    - microsoft.com
+    - aws.amazon.com
+    - coingecko.com
+    - blog.ethereum.org
+  T2:  # 有編輯把關的專業媒體
+    - reuters.com
+    - apnews.com
+    - bloomberg.com
+    - ft.com
+    - wsj.com
+    - cnbc.com
+    - bbc.com
+    - economist.com
+    - nytimes.com
+    - techcrunch.com
+    - theverge.com
+    - arstechnica.com
+    - technologyreview.com
+    - wired.com
+    - coindesk.com
+    - theblock.co
+    - cointelegraph.com
+    - decrypt.co
+    - hbr.org
+    - cna.com.tw
+    - pts.org.tw
+    - udn.com
+    - money.udn.com
+    - ctee.com.tw
+    - cw.com.tw
+    - businessweekly.com.tw
+    - bnext.com.tw
+    - ithome.com.tw
+    - twreporter.org
+    - thenewslens.com
+    - ltn.com.tw
+    - chinatimes.com
+  T3:  # 有實績的獨立分析（只當觀點）
+    - stratechery.com
+    - news.ycombinator.com
+    - lennysnewsletter.com
+    - a16z.com
+    - latent.space
+    - simonwillison.net
+    - producthunt.com
+
+# 各區塊可搜尋的網域群組（allowed_domains 白名單）
+groups:
+  fin_tw: [cna.com.tw, money.udn.com, udn.com, ctee.com.tw, cw.com.tw, businessweekly.com.tw, cbc.gov.tw, fsc.gov.tw, mof.gov.tw, twse.com.tw]
+  fin_global: [reuters.com, bloomberg.com, ft.com, wsj.com, cnbc.com, apnews.com, federalreserve.gov, sec.gov, ecb.europa.eu, imf.org, bis.org]
+  politics_tw: [cna.com.tw, pts.org.tw, udn.com, ltn.com.tw, chinatimes.com, thenewslens.com, twreporter.org, ey.gov.tw, president.gov.tw]
+  politics_global: [reuters.com, apnews.com, bbc.com, economist.com, nytimes.com, ft.com]
+  ai_primary: [openai.com, anthropic.com, blog.google, deepmind.google, ai.meta.com, github.blog, huggingface.co, nvidia.com, microsoft.com, arxiv.org, nature.com]
+  tech_media: [techcrunch.com, theverge.com, arstechnica.com, technologyreview.com, wired.com, ithome.com.tw, bnext.com.tw, reuters.com, bloomberg.com]
+  indep: [stratechery.com, news.ycombinator.com, simonwillison.net, latent.space, lennysnewsletter.com, a16z.com, producthunt.com]
+  crypto: [coindesk.com, theblock.co, cointelegraph.com, decrypt.co, sec.gov, cftc.gov, fsc.gov.tw, coingecko.com, blog.ethereum.org, reuters.com, bloomberg.com]
+  business: [reuters.com, bloomberg.com, ft.com, wsj.com, cnbc.com, hbr.org, techcrunch.com, sec.gov, businessweekly.com.tw, cw.com.tw, ctee.com.tw, stratechery.com]
+
+# 社群來源（T4，只當訊號）
+social:
+  threads:
+    enabled: true
+    min_likes: 5
+    queries_zh: ["好難用", "太麻煩了", "有沒有app", "求推薦 工具", "超煩", "為什麼沒有", "每次都要", "浪費時間"]
+    queries_en: ["so frustrating", "wish there was an app", "why is there no", "hate that I have to", "pain point"]
+    per_query_keep: 8
+  dcard:
+    enabled: true
+    forums: [money, job, tech_job, pm, ai_tool_lounge]
+    limit: 25
+    min_likes: 20
+    min_comments: 10
+    fulltext_top: 8
+    trends_all_forums: true   # 流行趨勢區塊用全站熱門（會排除政治/感情）
+  instagram:
+    enabled: false            # 實測多為行銷帳號內容，預設關閉
+  x:
+    enabled: false            # Phase 2：小帳號 cookie 驗證後再開
+  reddit:
+    enabled: false            # Phase 2：端點待驗證
+  tiktok:
+    enabled: false            # Phase 2：端點待驗證
+
+github:
+  trending_daily_keep: 12
+  trending_weekly_keep: 12
+  readme_chars: 2500
+
+crypto_ids: [bitcoin, ethereum, solana, tether]
