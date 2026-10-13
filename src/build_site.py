@@ -33,8 +33,7 @@ TAGS = {"事實": "fact", "推測": "guess", "不確定": "unsure"}
 DOUBT_LABEL = "我不確定的地方"
 
 FONTS = ("https://fonts.googleapis.com/css2?"
-         "family=Noto+Serif+TC:wght@600;700;900"
-         "&family=Noto+Sans+TC:wght@400;500;700;800&display=swap")
+         "family=Noto+Sans+TC:wght@400;500;600;700&display=swap")
 
 PAGE = """<!doctype html>
 <html lang="zh-Hant">
@@ -178,6 +177,28 @@ def split_items(body: str):
     return pre, items, notes
 
 
+def card_html(item: str) -> str:
+    """每則新聞 → 預設收合的卡片：只顯示標題與小標記，點開才看到全部欄位。"""
+    m = re.match(r"\s*<h3>(.*?)</h3>\s*(.*)", item, flags=re.S)
+    if not m:
+        return f'<article class="item">{item}</article>'
+    title, rest = m.groups()
+    meta = []
+    # 日榜排名與收藏數放在卡片上，不在展開後重複
+    heat = re.search(r'<div class="field"><dt>熱度</dt><dd>(.*?)</dd></div>', rest, flags=re.S)
+    if heat:
+        meta.append(f'<span class="item-meta">{heat.group(1)}</span>')
+        rest = rest.replace(heat.group(0), "", 1)
+    # 標記只看結論本身：「我不確定的地方」欄位幾乎每則都有，算進去就沒有資訊
+    claims = re.sub(r'<div class="field doubt">.*?</div>', "", rest, flags=re.S)
+    if "tag unsure" in claims:
+        meta.append('<span class="tag unsure">含不確定</span>')
+    elif "tag guess" in claims:
+        meta.append('<span class="tag guess">含推測</span>')
+    return (f'<details class="item"><summary><h3>{title}</h3>{"".join(meta)}</summary>'
+            f'<div class="item-body">{rest}</div></details>')
+
+
 def is_glance(sec: dict) -> bool:
     return re.match(r"30\s*秒", sec["title"]) is not None
 
@@ -214,13 +235,13 @@ def render_section(sec: dict, slugmap: dict) -> str:
     title = html.escape(sec["title"])
     if is_glance(sec):
         return (f'<section id="{sec["slug"]}" class="glance">'
-                f'<h2><span class="glance-icon" aria-hidden="true">⚡</span>{title}</h2>'
+                f'<h2>{title}</h2>'
                 f'<p class="glance-sub">先看這幾則；點任何一則會跳到該區塊的細節。</p>'
                 f'{glance_html(content.strip(), slugmap)}{excluded_html}</section>')
 
     pre, items, notes = split_items(sourceify(fieldify(md_to_html(content.strip()))))
     count = f'<span class="count">{len(items)} 則</span>' if items else ""
-    articles = "".join(f'<article class="item">{i}</article>' for i in items)
+    articles = "".join(card_html(i) for i in items)
     note_html = "".join(f'<div class="sec-note">{n}</div>' for n in notes)
     return (f'<section id="{sec["slug"]}">'
             f'<header class="sec-head"><h2>{title}</h2>{count}</header>'
@@ -287,8 +308,11 @@ def render_day(day: dict, prev_d, next_d, prefix: str, edition: int) -> str:
     slugmap = {s["title"]: s["slug"] for s in sections}
     nav = "".join(f'<li><a href="#{s["slug"]}">{html.escape(s["title"])}</a></li>' for s in sections)
 
+    # 標題用「；」串起多件事，拆成一件一行，避免一整句太長
+    lines = [t.strip() for t in re.split(r"[；;]", title) if t.strip()] or [title]
+    h1 = "".join(f'<span class="line">{html.escape(t)}</span>' for t in lines)
     head = [f'<header class="masthead"><p class="dateline">{dateline(day, edition)}</p>',
-            f'<h1>{html.escape(title)}</h1>']
+            f'<h1>{h1}</h1>']
     if meta.get("summary"):
         head.append(f'<p class="deck">{html.escape(meta["summary"])}</p>')
     head.append("</header>")

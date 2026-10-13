@@ -1,36 +1,35 @@
 /* 每日情報
-   像一份被人用螢光筆和紅筆標過的文件：事實安靜，推測用螢光筆，不確定用紅筆圈起來。
-   群青藍只用在兩處：首頁的 30 秒速覽，和可以點的東西。
+   簡約：單一無襯線字體、少裝飾、靠留白與細線分層。
+   標示是資訊，不是裝飾：螢光筆＝推測、紅色虛線＝不確定、來源等級 T1–T4 用不同形狀。
+   強調色（藍）只用在可以點的東西和首頁的 30 秒速覽。
    文字與底色的對比皆 ≥ 4.5:1，淺色與深色各一組。 */
 :root {
-  --ground: #f4f5fa;
-  --ink: #12143a;
-  --ink-2: #4a4d6e;
-  --rule: #dadcec;
-  --wash: #e8eaf6;
+  --ground: #fafafa;
+  --ink: #18181b;
+  --ink-2: #52525b;
+  --rule: #e4e4e7;
+  --wash: #f1f1f4;
 
-  --link: #3a2fe8;
-  --panel: #3a2fe8;
-  --on-panel: #ffffff;
+  --link: #2f55d4;
 
-  --mark: #ffd84d;          /* 螢光筆：推測 */
-  --on-mark: #12143a;
+  --mark: #ffe27a;          /* 螢光筆：推測 */
+  --on-mark: #18181b;
   --pen: #c81e48;           /* 紅筆：不確定 */
   --pen-wash: rgba(200, 30, 72, 0.07);
 
-  --display: "Noto Serif TC", "Songti TC", "Source Han Serif TC", "PMingLiU", Georgia, serif;
   --text: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --display: var(--text);
 
   --s1: 8px; --s2: 16px; --s3: 24px; --s4: 40px; --s5: 72px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --ground: #0c0d1e;
-    --ink: #ecedfb;
-    --ink-2: #a4a8cc;
-    --rule: #272a4d;
-    --wash: #1a1d3a;
-    --link: #a9a3ff;
+    --ground: #0e0f12;
+    --ink: #ececf0;
+    --ink-2: #a1a1ab;
+    --rule: #26272d;
+    --wash: #1a1b20;
+    --link: #8fa6ff;
     --pen: #ff7c9a;
     --pen-wash: rgba(255, 124, 154, 0.1);
   }
@@ -46,10 +45,10 @@ body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
-  font: 400 17px/1.9 var(--text);
+  font: 400 16px/1.8 var(--text);
   text-rendering: optimizeLegibility;
 }
-@media (min-width: 641px) { body { font-size: 18px; } }
+@media (min-width: 641px) { body { font-size: 17px; } }
 ::selection { background: var(--mark); color: var(--on-mark); }
 
 .skip {
@@ -71,15 +70,14 @@ a:focus-visible, input:focus-visible, summary:focus-visible {
   max-width: 1120px; margin: 0 auto; padding: 12px 32px;
 }
 .brand {
-  display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
-  font: 700 1.15rem var(--display); color: var(--ink); text-decoration: none;
+  display: inline-flex; align-items: center; min-height: 44px;
+  font: 700 1.05rem var(--text); color: var(--ink); text-decoration: none;
 }
-.brand::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--link); }
 .brand:hover { background: none; }
 .bar nav { display: flex; gap: 2px; }
 .bar nav a {
   min-height: 44px; padding: 0 14px; display: inline-flex; align-items: center;
-  font-size: 0.95rem; font-weight: 500; color: var(--ink-2); text-decoration: none; border-radius: 999px;
+  font-size: 0.93rem; font-weight: 500; color: var(--ink-2); text-decoration: none; border-radius: 999px;
 }
 .bar nav a:hover { background: var(--wash); color: var(--ink); }
 
@@ -90,19 +88,19 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 .rail { display: none; }
 .toc-inline { display: block; }
 @media (min-width: 1024px) {
-  .layout { grid-template-columns: 176px minmax(0, 780px); }
+  .layout { grid-template-columns: 176px minmax(0, 760px); }
   .rail { display: block; position: sticky; top: 24px; align-self: start; padding-top: 72px; }
   .toc-inline { display: none; }
 }
-.rail-title { font-size: 0.82rem; font-weight: 700; color: var(--ink-2); margin: 0 0 var(--s1); }
+.rail-title { font-size: 0.82rem; font-weight: 600; color: var(--ink-2); margin: 0 0 var(--s1); }
 .rail ol { list-style: none; margin: 0; padding: 0; }
 .rail a {
   display: block; min-height: 40px; padding: 6px 0 6px 14px;
-  font-size: 0.95rem; line-height: 1.6; font-weight: 500; color: var(--ink-2); text-decoration: none;
-  border-left: 3px solid var(--rule);
+  font-size: 0.93rem; line-height: 1.6; font-weight: 500; color: var(--ink-2); text-decoration: none;
+  border-left: 2px solid var(--rule);
 }
 .rail a:hover { background: none; color: var(--ink); border-left-color: var(--ink-2); }
-.rail a[aria-current] { color: var(--ink); font-weight: 700; border-left-color: var(--link); }
+.rail a[aria-current] { color: var(--ink); font-weight: 600; border-left-color: var(--link); }
 
 /* 窄螢幕：目錄變成橫向可捲動的一列 */
 .toc-inline {
@@ -114,7 +112,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 .toc-inline ol::-webkit-scrollbar { display: none; }
 .toc-inline a {
   display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; white-space: nowrap;
-  font-size: 0.92rem; font-weight: 500; color: var(--ink); text-decoration: none;
+  font-size: 0.9rem; font-weight: 500; color: var(--ink); text-decoration: none;
   border: 1px solid var(--rule); border-radius: 999px;
 }
 .toc-inline a[aria-current] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
@@ -123,59 +121,53 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 .masthead { padding: var(--s4) 0 var(--s2); }
 .dateline {
   display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 var(--s2);
-  font-size: 0.92rem; font-weight: 500; color: var(--ink-2); font-variant-numeric: tabular-nums;
+  font-size: 0.9rem; font-weight: 500; color: var(--ink-2); font-variant-numeric: tabular-nums;
 }
+/* 標題一件事一行（build_site.py 依「；」拆成 .line） */
 h1 {
-  font: 900 clamp(1.8rem, 4vw, 2.7rem)/1.4 var(--display);
-  margin: 0; text-wrap: balance;
+  font: 600 clamp(1.35rem, 2.4vw, 1.75rem)/1.5 var(--text);
+  margin: 0;
 }
-.deck { font-size: 1.05rem; line-height: 1.8; color: var(--ink-2); margin: var(--s2) 0 0; max-width: 38em; }
+h1 .line { display: block; text-wrap: balance; }
+h1 .line + .line { margin-top: 0.2em; }
+.deck { font-size: 1rem; line-height: 1.8; color: var(--ink-2); margin: var(--s2) 0 0; max-width: 38em; }
 .sample {
-  margin: var(--s3) 0 0; padding: 10px 16px; font-size: 0.92rem;
+  margin: var(--s3) 0 0; padding: 10px 16px; font-size: 0.9rem;
   border: 1px dashed var(--pen); color: var(--pen); border-radius: 8px;
 }
 
 /* 區塊 */
 .issue section { margin-top: var(--s5); }
 .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: var(--s2); }
-h2 { font: 700 clamp(1.5rem, 3vw, 2rem)/1.4 var(--display); margin: 0; text-wrap: balance; }
-.count { font-size: 0.95rem; font-weight: 500; color: var(--ink-2); }
-h3 { font: 700 1.3rem/1.55 var(--display); margin: 0; text-wrap: balance; }
+h2 { font: 600 clamp(1.25rem, 2.2vw, 1.5rem)/1.5 var(--text); margin: 0; text-wrap: balance; }
+.count { font-size: 0.9rem; font-weight: 500; color: var(--ink-2); }
+h3 { font: 600 1.15rem/1.6 var(--text); margin: 0; text-wrap: balance; }
 p, li { overflow-wrap: anywhere; }
 p { margin: 0 0 1.1em; }
 ol, ul { padding-left: 1.4em; margin: 0 0 1.1em; }
 li { margin: 0.4em 0; }
-strong { font-weight: 700; }
+strong { font-weight: 600; }
 
-/* 30 秒速覽：整頁唯一的大色塊 */
+/* 30 秒速覽：淺底＋一條強調色邊，沒有陰影 */
 .issue section.glance {
   margin-top: var(--s4); padding: var(--s3) var(--s3) var(--s1);
-  background: var(--panel); color: var(--on-panel); border-radius: 12px;
-  border-left: 10px solid var(--mark);
-  box-shadow: 0 10px 28px rgba(58, 47, 232, 0.28);
+  background: var(--wash); color: var(--ink); border-radius: 8px;
+  border-left: 3px solid var(--link);
 }
-.glance h2 {
-  display: flex; align-items: center; gap: 10px;
-  font: 700 1.35rem/1.4 var(--display); color: #fff; margin: 0 0 4px;
-}
-.glance-icon {
-  display: inline-grid; place-items: center; width: 34px; height: 34px;
-  border-radius: 50%; background: var(--mark); color: var(--on-mark); font-size: 1.05rem; line-height: 1;
-}
-.glance-sub { margin: 0 0 var(--s1); font-size: 0.9rem; line-height: 1.6; color: rgba(255, 255, 255, 0.8); }
+.glance h2 { font: 600 1.2rem/1.5 var(--text); color: var(--ink); margin: 0 0 4px; }
+.glance-sub { margin: 0 0 var(--s1); font-size: 0.9rem; line-height: 1.6; color: var(--ink-2); }
 .glance-list { list-style: none; margin: 0; padding: 0; }
-.glance-list li { margin: 0; border-top: 1px solid rgba(255, 255, 255, 0.22); }
+.glance-list li { margin: 0; border-top: 1px solid var(--rule); }
 .glance-list a {
   display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 4px 16px; align-items: baseline;
-  margin: 0 -10px; padding: 16px 10px; border-radius: 8px;
-  color: #fff; text-decoration: none; font-size: 1.08rem; line-height: 1.65; font-weight: 500;
+  margin: 0 -10px; padding: 14px 10px; border-radius: 6px;
+  color: var(--ink); text-decoration: none; font-size: 1rem; line-height: 1.7; font-weight: 400;
 }
-.glance-list a:hover { background: rgba(255, 255, 255, 0.12); }
-.glance-list a:focus-visible { outline-color: #fff; }
+.glance-list a:hover { background: var(--ground); }
 .glance-list .where {
   justify-self: start; padding: 0 10px; white-space: nowrap;
-  font-size: 0.8rem; font-weight: 700; line-height: 1.8;
-  border: 1px solid rgba(255, 255, 255, 0.65); border-radius: 999px;
+  font-size: 0.8rem; font-weight: 600; line-height: 1.8; color: var(--link);
+  border: 1px solid var(--link); border-radius: 999px;
 }
 @media (max-width: 560px) {
   .issue section.glance { padding: var(--s2) var(--s2) 4px; }
@@ -184,23 +176,43 @@ strong { font-weight: 700; }
 
 /* 怎麼讀 */
 .about { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--rule); }
-.about-title { font-size: 0.95rem; font-weight: 700; margin: 0 0 var(--s1); }
+.about-title { font-size: 0.86rem; font-weight: 600; color: var(--ink-2); margin: 0 0 var(--s1); }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 0 0 var(--s1); }
 .legend > div { display: flex; align-items: center; gap: 10px; }
 .legend dt, .legend dd { margin: 0; }
-.legend dd { font-size: 0.92rem; color: var(--ink-2); }
-.tiers { margin: 0 0 var(--s2); font-size: 0.92rem; color: var(--ink-2); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
-.about > p:not(.about-title):not(.tiers) { font-size: 0.96rem; line-height: 1.85; }
+.legend dd { font-size: 0.9rem; color: var(--ink-2); }
+.tiers { margin: 0 0 var(--s2); font-size: 0.9rem; color: var(--ink-2); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+/* 說明性文字（涵蓋範圍、怎麼讀、各區塊開頭的備註）：小一號、灰一階、粗體不加粗，不搶內容 */
+.about > p:not(.about-title):not(.tiers),
+.issue section > p:not(.glance-sub),
+.sec-head + .fields dd { font-size: 0.86rem; line-height: 1.8; color: var(--ink-2); }
+.about strong,
+.issue section > p strong,
+.sec-head + .fields strong { font-weight: 500; color: var(--ink); }
 
-/* 每則新聞：標籤欄＋內容欄 */
-.item { padding: var(--s3) 0 var(--s1); border-top: 1px solid var(--rule); }
-.sec-head + .item { border-top: 0; padding-top: var(--s1); }
+/* 每則新聞：卡片，預設只看標題，點開才看到標籤欄＋內容欄 */
+details.item { border: 1px solid var(--rule); border-radius: 8px; margin: 0 0 var(--s1); }
+details.item > summary {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
+  min-height: 52px; padding: 12px 48px 12px 16px; cursor: pointer; list-style: none; border-radius: 8px;
+}
+details.item > summary::-webkit-details-marker { display: none; }
+details.item > summary:hover { background: var(--wash); }
+details.item > summary::after {
+  content: ""; position: absolute; right: 20px; top: calc(50% - 6px); width: 8px; height: 8px;
+  border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2);
+  transform: rotate(45deg); transition: transform 0.15s;
+}
+details.item[open] > summary::after { transform: translateY(4px) rotate(-135deg); }
+details.item > summary h3 { flex: 1 1 100%; font-size: 1.02rem; font-weight: 600; line-height: 1.6; margin: 0; }
+.item-meta { font-size: 0.86rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.item-body { padding: 0 16px 12px; border-top: 1px solid var(--rule); }
 .fields { margin: var(--s2) 0 0; }
 .field {
   display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 0 var(--s2);
   padding: 8px 0 8px 14px; border-left: 3px solid transparent;
 }
-.field dt { font-size: 0.88rem; font-weight: 700; color: var(--ink-2); padding-top: 0.3em; line-height: 1.7; }
+.field dt { font-size: 0.86rem; font-weight: 600; color: var(--ink-2); padding-top: 0.3em; line-height: 1.7; }
 .field dd { margin: 0; }
 .field dd > ul { margin: 0; padding-left: 1.2em; }
 .field.is-guess { border-left-color: var(--mark); }
@@ -217,17 +229,17 @@ strong { font-weight: 700; }
 }
 
 /* 來源 */
-.sources { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 0 var(--s2); padding: 12px 0 0 14px; font-size: 0.93rem; line-height: 1.7; }
-.sources .k { font-size: 0.88rem; font-weight: 700; color: var(--ink-2); }
+.sources { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 0 var(--s2); padding: 12px 0 0 14px; font-size: 0.92rem; line-height: 1.7; }
+.sources .k { font-size: 0.86rem; font-weight: 600; color: var(--ink-2); }
 .sources ul { list-style: none; margin: 0; padding: 0; }
 .sources li { margin: 0 0 6px; display: flex; gap: 10px; align-items: baseline; }
 @media (max-width: 560px) { .sources { grid-template-columns: 1fr; } }
-.sec-note { margin-top: var(--s3); padding: 12px 16px; background: var(--wash); border-radius: 8px; font-size: 0.95rem; color: var(--ink-2); }
+.sec-note { margin-top: var(--s3); padding: 12px 16px; background: var(--wash); border-radius: 8px; font-size: 0.94rem; color: var(--ink-2); }
 .sec-note p { margin: 0; }
 
 /* 資訊類型（膠囊）與來源等級（方塊）：形狀不同，不只靠顏色 */
 .tag, .tier {
-  display: inline-block; flex: none; font-size: 0.74rem; font-weight: 700; line-height: 1.75;
+  display: inline-block; flex: none; font-size: 0.74rem; font-weight: 600; line-height: 1.75;
   padding: 0 9px; white-space: nowrap; vertical-align: 0.12em;
 }
 .tag { border-radius: 999px; margin-right: 0.3em; }
@@ -235,20 +247,20 @@ strong { font-weight: 700; }
 .tag.guess { background: var(--mark); color: var(--on-mark); }
 .tag.unsure { color: var(--pen); border: 1px dashed var(--pen); padding: 0 8px; }
 .tier { border-radius: 4px; }
-.tier b { font-weight: 800; margin-right: 6px; }
+.tier b { font-weight: 700; margin-right: 6px; }
 .tier.t1 { background: var(--ink); color: var(--ground); }
 .tier.t2 { border: 1px solid var(--ink); padding: 0 8px; }
 .tier.t3 { border: 1px dashed var(--ink-2); color: var(--ink-2); padding: 0 8px; }
 .tier.t4 { background: var(--wash); color: var(--ink-2); }
-.unverified { color: var(--pen); font-size: 0.88rem; }
+.unverified { color: var(--pen); font-size: 0.86rem; }
 
 blockquote { margin: var(--s3) 0; padding: 0 0 0 var(--s3); border-left: 3px solid var(--rule); color: var(--ink-2); }
-table { border-collapse: collapse; width: 100%; font-size: 0.95rem; display: block; overflow-x: auto; margin: var(--s2) 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.94rem; display: block; overflow-x: auto; margin: var(--s2) 0; }
 th, td { border-bottom: 1px solid var(--rule); padding: 8px 12px; text-align: left; }
-th { font-weight: 700; border-bottom: 2px solid var(--ink); }
+th { font-weight: 600; border-bottom: 2px solid var(--ink); }
 code { font-size: 0.88em; background: var(--wash); padding: 1px 6px; border-radius: 4px; }
 
-details.excluded { margin-top: var(--s3); color: var(--ink-2); font-size: 0.95rem; line-height: 1.8; }
+details.excluded { margin-top: var(--s3); color: var(--ink-2); font-size: 0.94rem; line-height: 1.8; }
 details.excluded summary {
   cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: 10px;
   font-size: 0.9rem; font-weight: 500; list-style: none;
@@ -263,13 +275,13 @@ details.excluded[open] summary::before { transform: rotate(45deg); }
 details.excluded ul { padding-left: 1.2em; }
 
 .pager { display: flex; justify-content: space-between; gap: var(--s2); margin-top: var(--s5); padding-top: var(--s3); border-top: 1px solid var(--rule); }
-.pager a { display: flex; flex-direction: column; min-height: 44px; color: var(--ink); text-decoration: none; font-size: 1.05rem; font-weight: 700; }
+.pager a { display: flex; flex-direction: column; min-height: 44px; color: var(--ink); text-decoration: none; font-size: 1rem; font-weight: 600; }
 .pager a:hover { background: none; color: var(--link); }
 .pager small { font-size: 0.8rem; font-weight: 500; color: var(--ink-2); }
 .pager .next { text-align: right; margin-left: auto; }
 
 /* 歷史 / 搜尋 */
-.plain { max-width: 780px; }
+.plain { max-width: 760px; }
 .plain .masthead { padding-bottom: 0; }
 .issues { list-style: none; padding: 0; margin: var(--s3) 0; }
 .issues li { margin: 0; }
@@ -279,17 +291,17 @@ details.excluded ul { padding-left: 1.2em; }
   color: var(--ink); text-decoration: none;
 }
 .issues a:hover { background: none; color: var(--link); }
-.issues .no, .issues .when, .when { font-size: 0.92rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-.issues .what { font-weight: 700; font-size: 1.05rem; line-height: 1.6; }
+.issues .no, .issues .when, .when { font-size: 0.9rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.issues .what { font-weight: 600; font-size: 1rem; line-height: 1.6; }
 @media (max-width: 560px) { .issues a { grid-template-columns: 1fr; gap: 2px; } }
 #q {
-  width: 100%; min-height: 56px; margin-top: var(--s3); padding: 8px 18px;
-  font: 400 1.1rem var(--text); background: var(--wash); color: var(--ink);
-  border: 2px solid transparent; border-radius: 12px;
+  width: 100%; min-height: 52px; margin-top: var(--s3); padding: 8px 16px;
+  font: 400 1.05rem var(--text); background: var(--ground); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 8px;
 }
 #q:focus { outline: none; border-color: var(--link); }
 .hit { margin: var(--s3) 0; }
-.hit span, .hint { color: var(--ink-2); font-size: 0.95rem; }
+.hit span, .hint { color: var(--ink-2); font-size: 0.93rem; }
 
 .colophon { max-width: 1120px; margin: var(--s5) auto 0; padding: var(--s3) 32px var(--s5); border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 0.85rem; line-height: 1.8; }
 .colophon p { max-width: 52em; margin: 0; }
